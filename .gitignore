@@ -9,8 +9,7 @@ logs/
 # Local settings
 .claude/
 
-# Internal docs (not for public repo)
-CLAUDE.md
+# Internal docs (agent OPSEC - not for public repo)
 DARKIRC_AGENT_INVARIANTS.md
 
 # OS files
