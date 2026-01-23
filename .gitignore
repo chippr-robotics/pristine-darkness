@@ -1,0 +1,18 @@
+# Build artifacts (cloned/built by scripts)
+darkfi/
+xmrig/
+
+# Runtime files
+logs/
+*.log
+
+# Local settings
+.claude/
+
+# Internal docs (not for public repo)
+CLAUDE.md
+DARKIRC_AGENT_INVARIANTS.md
+
+# OS files
+.DS_Store
+Thumbs.db
