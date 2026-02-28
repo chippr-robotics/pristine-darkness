@@ -1,0 +1,31 @@
+{
+  "darkfi": {
+    "last_built_commit": null,
+    "last_built_date": null,
+    "build_status": null,
+    "branch": "master",
+    "pinned_commit": null,
+    "repo_url": "https://codeberg.org/darkrenaissance/darkfi.git"
+  },
+  "xmrig": {
+    "last_built_commit": null,
+    "last_built_tag": null,
+    "last_built_date": null,
+    "build_status": null,
+    "repo_url": "https://github.com/xmrig/xmrig.git"
+  },
+  "known_working_commits": {
+    "darkirc": "a05956d",
+    "darkfid": null
+  },
+  "testnet": {
+    "status": "offline",
+    "status_updated": "2026-01-23",
+    "ports": {
+      "rpc": 18345,
+      "management_rpc": 18346,
+      "stratum_rpc": 18347,
+      "p2p": 28340
+    }
+  }
+}

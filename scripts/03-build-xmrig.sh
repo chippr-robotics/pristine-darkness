@@ -20,9 +20,13 @@ fi
 
 cd "$XMRIG_DIR"
 
-# Fetch tags and checkout latest stable
+# Fetch tags and checkout latest stable (graceful failure)
 echo "[*] Fetching latest release..."
-git fetch --all --tags
+if git fetch --all --tags 2>/dev/null; then
+    echo "[✓] Fetch complete"
+else
+    echo "[!] Fetch failed -- proceeding with cached source"
+fi
 LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "[*] Checking out $LATEST_TAG..."
 git checkout "$LATEST_TAG"
@@ -43,6 +47,9 @@ cmake .. \
 echo "[*] Building xmrig..."
 make -j$(nproc)
 
+# Record the exact commit hash
+BUILD_COMMIT=$(git rev-parse --short HEAD)
+
 # Verify binary
 echo ""
 echo "=== Build Complete ==="
@@ -51,7 +58,15 @@ if [ -f "$XMRIG_DIR/build/xmrig" ]; then
     echo ""
     echo "Checking OpenCL support..."
     "$XMRIG_DIR/build/xmrig" --version
+
+    # Record build result
+    if [ -x "$SCRIPT_DIR/update-versions.sh" ]; then
+        "$SCRIPT_DIR/update-versions.sh" --component xmrig --commit "$BUILD_COMMIT" --tag "$LATEST_TAG" --status success
+    fi
 else
     echo "[✗] xmrig binary not found!"
+    if [ -x "$SCRIPT_DIR/update-versions.sh" ]; then
+        "$SCRIPT_DIR/update-versions.sh" --component xmrig --commit "$BUILD_COMMIT" --tag "$LATEST_TAG" --status failed
+    fi
     exit 1
 fi

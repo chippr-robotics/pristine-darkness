@@ -31,6 +31,11 @@ This directory contains a complete DarkFi testnet environment with mining suppor
 
 # 7. Start mining (Terminal 3)
 ./scripts/start-mining.sh
+
+# Utility scripts
+./scripts/update-darkfi.sh          # Check for upstream updates
+./scripts/update-darkfi.sh --rebuild # Fetch and rebuild
+./scripts/check-status.sh           # Diagnostics / connectivity check
 ```
 
 ## Architecture
@@ -55,8 +60,9 @@ This directory contains a complete DarkFi testnet environment with mining suppor
 ## Directory Structure
 
 ```
-/chipprbots/blockchain/darkfi/
+pristine-darkness/
 ├── CLAUDE.md              # This file
+├── versions.json          # Build version tracking
 ├── darkfi/                # DarkFi source and binaries
 │   ├── darkfid            # Node binary
 │   └── drk                # Wallet binary
@@ -98,7 +104,7 @@ network = "testnet"
 ./darkfi/darkfid -v
 
 # Check if node is running
-curl -s http://127.0.0.1:8340 -d '{"jsonrpc":"2.0","method":"ping","params":[],"id":1}'
+curl -s http://127.0.0.1:18345 -d '{"jsonrpc":"2.0","method":"ping","params":[],"id":1}'
 ```
 
 ### Wallet Operations
@@ -170,9 +176,10 @@ MINING_THREADS=4 ./scripts/start-mining.sh
 
 | Port  | Service | Protocol |
 |-------|---------|----------|
-| 8340  | darkfid RPC | JSON-RPC |
+| 18345 | darkfid RPC | JSON-RPC |
+| 18346 | Management RPC | JSON-RPC |
 | 18347 | Stratum RPC | Stratum |
-| 26660 | P2P (testnet) | TCP |
+| 28340 | P2P (testnet) | TCP |
 
 ## Monitoring
 
