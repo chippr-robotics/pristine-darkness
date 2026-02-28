@@ -13,6 +13,9 @@ Automation scripts for quickly setting up a DarkFi testnet node with GPU mining 
 | `start-node.sh` | Start the DarkFi node daemon |
 | `start-wallet.sh` | Start the wallet CLI |
 | `start-mining.sh` | Start GPU mining |
+| `update-darkfi.sh` | Fetch latest upstream, show new commits |
+| `update-versions.sh` | Record build results to versions.json |
+| `check-status.sh` | Diagnostics: versions, binaries, connectivity |
 
 ## Prerequisites
 
@@ -76,6 +79,7 @@ After running the build scripts, your directory will look like:
 ```
 darkfi-speedrun/
 ├── README.md              # This file
+├── versions.json          # Build version tracking
 ├── scripts/               # Setup and run scripts
 ├── config/                # Config backups
 ├── logs/                  # Runtime logs (created at runtime)
@@ -119,7 +123,7 @@ network = "testnet"
 ./darkfi/darkfid -v
 
 # Check if node is running
-curl -s http://127.0.0.1:8340 -d '{"jsonrpc":"2.0","method":"ping","params":[],"id":1}'
+curl -s http://127.0.0.1:18345 -d '{"jsonrpc":"2.0","method":"ping","params":[],"id":1}'
 ```
 
 ### Wallet Operations
@@ -159,9 +163,10 @@ MINING_THREADS=4 ./scripts/start-mining.sh
 
 | Port  | Service | Protocol |
 |-------|---------|----------|
-| 8340  | darkfid RPC | JSON-RPC |
+| 18345 | darkfid RPC | JSON-RPC |
+| 18346 | Management RPC | JSON-RPC |
 | 18347 | Stratum RPC | Stratum |
-| 26660 | P2P (testnet) | TCP |
+| 28340 | P2P (testnet) | TCP |
 
 ## Troubleshooting
 
